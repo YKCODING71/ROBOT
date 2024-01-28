@@ -1,41 +1,74 @@
-import cv2
+import tkinter as tk
+from tkinter import ttk
 
-def main():
-    camera = cv2.VideoCapture(0)
-    camera.set(3,320)
-    camera.set(4,240)
+def select_serial():
+    pass
+
+def start_serial():
+    pass
+
+def stop_serial():
+    pass
+
+def slide_handler_0():
+    pass
+
+serial_list = ['시리얼 포트를 선택하세요.']
+
+root = tk.Tk()
+root.title('KG-KAIROS Robot Control')
+root.geometry('600x480')
+
+m_serial_select = ttk.Frame(root)
+var = tk.StringVar()
+m_serial_select.pack()
+
+'''
+list1 = [1, 2, 3]
+이 리스트를 '*'를 사용하여 펼치면 다음과 같은 튜플이 반환됩니다.
+print(*list1)
+(1, 2, 3)
+'''
+# add option menu
+dropdown = ttk.OptionMenu(m_serial_select, var, serial_list[0], *serial_list, command = select_serial)
+dropdown.pack()
+dropdown.configure(state='normal')
+
+# add button using frame 
+m_serial_start_btn = ttk.Frame(root)
+m_serial_stop_btn = ttk.Frame(root)
+
+start_serial_btn = ttk.Button(m_serial_start_btn, text="Start serial", command=start_serial)
+start_serial_btn.pack(side='left',padx=10) 
         
-    while True:
-        _, frame = camera.read()  
+stop_serial_btn = ttk.Button(m_serial_stop_btn, text="Stop serial", command=stop_serial)
+stop_serial_btn.pack(side='left',padx=10)
 
-        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-        
-        lower_blue = (100,100,120)  #색깔을 나타내주는 영역데이터 100~150
-        upper_blue = (150,255,255)
-        
-        lower_green = (50, 150, 50)
-        upper_green = (80, 255, 255)
-        
-        lower_red = (150, 50, 50)
-        upper_red = (180, 255, 255)
-                
-        redMask = cv2.inRange(hsv, lower_red, upper_red)   #배열병합
-        greenMask = cv2.inRange(hsv, lower_green, upper_green)  
-        blueMask = cv2.inRange(hsv, lower_blue, upper_blue)  
+start_serial_btn.configure(state='disable')
+stop_serial_btn.configure(state='disable')
 
-        red = cv2.bitwise_and(frame, frame, mask=redMask)     #비트연산(and reamask)
-        green = cv2.bitwise_and(frame, frame, mask=greenMask)  
-        blue = cv2.bitwise_and(frame, frame, mask=blueMask)   
+# add servo angle label using frame
+m_link0 = ttk.Frame(root)       # link 0  
 
-        cv2.imshow('frame',frame)
-        cv2.imshow('red', red)
-        cv2.imshow('Green', green)
-        cv2.imshow('Blue', blue)
-        
-        if cv2.waitKey(1) == ord('q'):
-            break
+link0 = tk.StringVar()
+ttk.Label(m_link0,text='Link 0: ',font='Helvetica 10 bold').pack(side='left')
+port1 = ttk.Entry(m_link0,width=6, textvariable = link0)
+port1.insert('end','80')
+port1.pack(side='left',padx=0,pady=5)
 
-    cv2.destroyAllWindows()
-
-if __name__ == '__main__':
-    main()
+# add slider using 
+angle_0 = 0
+m_slide_0 = ttk.Frame(root)  
+m_slide_0_track = ttk.Scale(m_slide_0, length = 200,  from_= -90, to = 90, orient ="vertical")
+m_slide_0_track.bind("<ButtonRelease-1>", slide_handler_0)
+m_slide_0_track.set(angle_0)
+m_slide_0_track.pack(side='left',padx=0,pady=5)
+    
+# grid layout 
+m_serial_select.grid(column=1,row=0,columnspan=3,padx=10,pady=10,sticky='w')
+m_serial_start_btn.grid(column=1,row=1,padx=10,pady=5,sticky='w')
+m_serial_stop_btn.grid(column=2,row=1,padx=10,pady=5,sticky='w')
+m_link0.grid(column=1,row=2,padx=10,pady=5,sticky='w')
+m_slide_0.grid(column=1,row=6,padx=15,pady=5,sticky='w')
+       
+root.mainloop()
