@@ -1,4 +1,5 @@
-import tkinter
+
+    import tkinter
 import tkinter.font
 import time
 
@@ -10,11 +11,14 @@ def send_servo(self):
     print(value)
     time.sleep(0.1)
     
-def process(price):                                   
+def process():                                   
     en1.delete(0,"end")                        
     en1.insert(0,str(scale.get()))
+ #   en1.insert(0,',')
+ #   en1.insert(0,str(scale.get()))
 
-   
+#def multi():
+
 
 if __name__ == '__main__':
     
@@ -35,10 +39,12 @@ if __name__ == '__main__':
     label.grid(row = 0, column = 0, columnspan=3)
     scale.grid(row = 3, column = 0, columnspan=3)
     
-    bt1 = tkinter.Button(window, width='20',text="각도 등록",command=lambda: process(ANGLE))
+    bt1 = tkinter.Button(window, width='20',text="각도 등록",command=lambda: process())
     bt1.place(x=50, y=100)
     en1 = tkinter.Entry(window)                                 #입력가능창 
     en1.place(x=300, y=100)
+#    bt2 = tkinter.Button(window, width='20',text="전송",command=lambda: multi())
+#    bt3.place(x=50, y=100)
     window.mainloop()
     
     
