@@ -1,0 +1,60 @@
+//-----------slam ------------
+
+kairos@kairos-VirtualBox:~/Desktop$ cd ..
+kairos@kairos-VirtualBox:~$ export TURTLEBOT_MODEL=waffle_pi
+kairos@kairos-VirtualBox:~$ nano ~/.bashrc
+kairos@kairos-VirtualBox:~$ source ~/catkin_ws/devel/setup.bash
+kairos@kairos-VirtualBox:~$ export TURTLEBOT3_MODEL=waffle_pi
+
+sudo apt-get install ros-noetic-joy ros-noetic-teleop-twist-joy \
+  ros-noetic-teleop-twist-keyboard ros-noetic-laser-proc \
+  ros-noetic-rgbd-launch ros-noetic-rosserial-arduino \
+  ros-noetic-rosserial-python ros-noetic-rosserial-client \
+  ros-noetic-rosserial-msgs ros-noetic-amcl ros-noetic-map-server \
+  ros-noetic-move-base ros-noetic-urdf ros-noetic-xacro \
+  ros-noetic-compressed-image-transport ros-noetic-rqt* ros-noetic-rviz \
+  ros-noetic-gmapping ros-noetic-navigation ros-noetic-interactive-markers
+
+$ sudo apt install ros-noetic-dynamixel-sdk
+$ sudo apt install ros-noetic-turtlebot3-msgs
+$ sudo apt install ros-noetic-turtlebot3
+
+cd ~/catkin_ws/src/
+git clone https://github.com/ROBOTIS-GIT/turtlebot3.git
+git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
+git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+cd ~/catkin_ws && catkin_make
+
+
+
+//------------------------------(터틀봇)
+
+$ ~/.bashrc
+(아래내용삽입)
+alias eb =‘nano ~/.bashrc'
+alias sb ='source ~/.bashrc'
+alias cw ='cd ~/catkin_ws'
+alias cs ='cd ~/catkin_ws/src'
+alias cm ='cd ~/catkin_ws && catkin_make'
+source /opt/ros/kinetic/setup.bash
+source ~/catkin_ws/devel/setup.bash
+export ROS_MASTER_URI=http://localhost:11311
+export ROS_HOSTNAME=localhost
+#export ROS_MASTER_URI=http://192.168.1.100:11311
+#export ROS_HOSTNAME=192.168.1.100
+
+$ roscore
+
+$ rosrun turtlesim turtlesim_node
+$ rosrun turtlesim turtle_teleop_key
+$ rqt_graph
+
+
+$source ~/catkin_ws/devel/setup.bash
+$TURTLEBOT3_MODEL=waffle_pi
+$roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+
+(실행창)에서 w/a/s/d
+
+$sudo chmod 666 /dev/ttyUSB0
+
