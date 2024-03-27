@@ -1,0 +1,84 @@
+[1] [ROS Noetic 설치 ]
+1. $ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+2. $ sudo apt install curl
+   $ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+3. $sudo apt update
+4. $ sudo apt install ros-noetic-desktop-full
+5. $ source /opt/ros/noetic/setup.bash
+6. $ echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+   $ source ~/.bashrc
+7. $roscore   #확인
+
+
+ROS 삭제
+sudo apt-get purge ros-* 
+rosversion -d 
+[2] 개발환경구축
+1. $ pwd 		#내 작업폴더 하위에 디렉토리 생성
+/home/kairos 
+2. $ mkdir -p ~/catkin_ws/src
+3. $ cd ~/catkin_ws/src
+4. $ catkin_init_workspace
+5. $ cd ~/catkin_ws
+6. $ catkin_make
+7. $ source ~/catkin_ws/devel/setup.bash
+8. $roscore  #확인
+
+[3] 배치파일만들기 
+1. $nano ~/.bashrc
+2. 맨 하위에 아래 내용 입력
+source /opt/ros/noetic/setup.bash
+source ~/catkin_ws/devel/setup.bash
+3. 작성완료뒤 Ctrl+x  --> [Y]
+4. source ~/.bashrc
+
+[5] 패키지 만드는 방법1(ros_topic)
+1. $ cd ~/catkin_ws/src
+   $ pwd
+   /home/kairos/catkin_ws/src   
+   $ catkin_create_pkg ros_topic message_generation std_msgs roscpp
+2. $ cd ros_topic
+   $ ls
+   include   src    CMakeLists.txt    package.xml
+3. 비주얼코드 편집 $code
+1) 비주얼코드 -> 폴더열기 -> catkin_ws/src
+2) ros_topic 폴더에서 편집
+3) 폴더만들기 msg
+4) 새파일생성 : Message1.msg
+    time stamp
+    int32 data
+
+5) CMakeLists.txt 수정
+ 
+cmake_minimum_required(VERSION 3.0.2)
+project(ros_topic)
+
+find_package(catkin REQUIRED COMPONENTS
+  message_generation
+  roscpp
+  std_msgs
+)
+
+add_message_files(
+   FILES
+   Message1.msg
+ )
+
+generate_messages( DEPENDENCIES  std_msgs )
+
+catkin_package( )
+
+include_directories( ${catkin_INCLUDE_DIRS})
+
+add_executable(ros_topic_publisher src/ros_topic_publisher.cpp)
+add_dependencies(ros_topic_publisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+Target_link_libraries(ros_topic_publisher ${catkin_LIBRARIES})
+
+add_executable(ros_topic_subscriber src/ros_topic_subscriber.cpp)
+add_dependencies(ros_topic_subscriber ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(ros_topic_subscriber ${catkin_LIBRARIES})
+    
+
+
+
+
