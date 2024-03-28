@@ -44,6 +44,7 @@ export ROS_HOSTNAME=localhost
 #export ROS_MASTER_URI=http://192.168.1.100:11311
 #export ROS_HOSTNAME=192.168.1.100
 
+
 $ roscore
 
 $ rosrun turtlesim turtlesim_node
@@ -58,4 +59,20 @@ $roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
 (실행창)에서 w/a/s/d
 
 $sudo chmod 666 /dev/ttyUSB0
+
+
+//------------------------------(rviz)
+$roslaunch turtlebot3_fake turtlebot3_fake.launch
+$roslaunch turtlebot3_gazebo turtlebot3_world.launch
+$roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
+$roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+$rosrun map_server map_saver -f ~/worldmap #맵저장
+$roslaunch turtlebot3_gazebo turtlebot3_world.launch
+$roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/worldmap.yaml
+$roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+
+
+
+
+
 
