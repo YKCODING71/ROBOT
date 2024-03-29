@@ -1,3 +1,6 @@
+관련사이트 : https://emanual.robotis.com/docs/en/platform/turtlebot3/navigation/#run-navigation-nodes
+
+
 1. Windows Terminal 실행.
 	- (gazebo에서 제공하는 turtlebot3 예제 중 world_map 사용)
 	- world_map : turtlebot3 패키지를 설치하면 자동으로 설치됨.
