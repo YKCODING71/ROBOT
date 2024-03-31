@@ -1,18 +1,19 @@
 [1] [ROS Noetic 설치 ]
 1. $ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+
 2. $ sudo apt install curl
    $ curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
-3. $sudo apt update
+3. $ sudo apt update
 4. $ sudo apt install ros-noetic-desktop-full
-5. $ source /opt/ros/noetic/setup.bash
-6. $ echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
-   $ source ~/.bashrc
-7. $roscore   #확인
+5. $ echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+6. $ source ~/.bashrc
+7. $ roscore   #확인
 
 
 ROS 삭제
 sudo apt-get purge ros-* 
 rosversion -d 
+
 [2] 개발환경구축
 1. $ pwd 		#내 작업폴더 하위에 디렉토리 생성
 /home/kairos 
@@ -22,13 +23,22 @@ rosversion -d 
 5. $ cd ~/catkin_ws
 6. $ catkin_make
 7. $ source ~/catkin_ws/devel/setup.bash
-8. $roscore  #확인
+8. $ roscore  #확인
 
 [3] 배치파일만들기 
 1. $nano ~/.bashrc
+
 2. 맨 하위에 아래 내용 입력
+# Set ROS Kinetic(or Melodic)
 source /opt/ros/noetic/setup.bash
 source ~/catkin_ws/devel/setup.bash
+
+
+# Set ROS alias command
+alias cw='cd ~/catkin_ws'
+alias cs='cd ~/catkin_ws/src'
+alias cm='cd ~/catkin_ws && catkin_make'
+
 3. 작성완료뒤 Ctrl+x  --> [Y]
 4. source ~/.bashrc
 
