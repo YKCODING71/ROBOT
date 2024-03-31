@@ -1,5 +1,17 @@
 관련사이트 : https://emanual.robotis.com/docs/en/platform/turtlebot3/navigation/#run-navigation-nodes
 
+0. 실습 
+$ roslaunch turtlebot3_fake turtlebot3_fake.launch
+$ roslaunch turtlebot3_gazebo turtlebot3_world.launch
+$ rqt_graph  
+$ roslaunch turtlebot3_slam turtlebot3_slam.launch slam_methods:=gmapping
+$ roslaunch turtlebot3_teleop turtlebot3_teleop_key.launch
+
+$ rosrun map_server map_saver -f ~/worldmap
+$ roslaunch turtlebot3_gazebo turtlebot3_world.launch
+$ roslaunch turtlebot3_navigation turtlebot3_navigation.launch map_file:=$HOME/worldmap.yaml
+
+
 
 1. Windows Terminal 실행.
 	- (gazebo에서 제공하는 turtlebot3 예제 중 world_map 사용)
