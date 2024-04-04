@@ -1,0 +1,177 @@
+<?xml version="1.0" ?>
+<robot name="cobit_robot_mk1">
+<!-- cobit robot mk1 URDF file 
+     cobit robot mk1 uses robot frame from below URL.
+     https://howtomechatronics.com/tutorials/arduino/diy-arduino-robot-arm-with-smartphone-control/
+-->
+    <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+    </material>
+    <material name="orange">
+        <color rgba="1.0 0.4 0.0 1.0"/>
+    </material>
+
+    <!-- Link "base" is base station for robor. This link does not move.-->
+    <link name="base">
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.04" radius="0.08"/>
+            </geometry>
+            <!--
+            <geometry>
+                <mesh filename="file:///home/conner/catkin_ws/src/testbot_description/meshes/Base.STL"/>
+            </geometry>
+            -->
+        </collision>
+        <visual>
+            <origin xyz="0 0 0.02" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.04" radius="0.08"/>
+            </geometry>
+            
+            <geometry>
+                <mesh filename="file:////home/uga/catkin_ws/src/ex_urdf/base.stl"/>
+            </geometry>
+            <material name="black"/>
+            
+        </visual>
+    </link>
+
+    <!-- Joint "joint0" is joint between "base" and "link1".-->
+    <joint name="joint0" type="revolute">
+        <parent link="base"/>
+        <child link="link1"/>
+        <origin xyz="0 0 0.03225" rpy="0 0 0"/>
+        <axis xyz="0 0 1"/>
+        <limit effort="30" lower="-1.5708" upper="1.5708" velocity="1.571"/>
+    </joint> 
+
+    <!-- Link "link1" is arm between base and shoulder. It rotates with center of z-zxis-->
+    <link name="link1">
+        <collision>
+            <origin xyz="0 0 0.018" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.036" radius="0.01"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0.018" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.036" radius="0.01"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <inertial>
+            <origin xyz="0 0 0.018" rpy="0 0 0"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+
+    <!-- Joint "joint1" is joint between "link1" and "link2" shoulder arm.-->
+    <joint name="joint1" type="revolute">
+        <parent link="link1"/>
+        <child link="link2"/>
+        <origin xyz="0 0 0.04" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="30" lower="-1.5708" upper="1.5708" velocity="1.571"/>
+    </joint>
+
+    <!-- Link "link2" is shoulder arm.  -->
+    <link name="link2">
+        <collision>
+            <origin xyz="0 0 0.06" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.01"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0.06" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.01"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <inertial>
+            <origin xyz="0 0 0.06" rpy="0 0 0"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+
+    <!-- Joint "joint2" is joint between shoulder arm(link2) and elbow arm(lin3). -->
+    <joint name="joint2" type="revolute">
+        <parent link="link2"/>
+        <child link="link3"/>
+        <origin xyz="0 0 0.12" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="30" lower="-1.5708" upper="1.5708" velocity="1.571"/>
+    </joint>
+
+    <!-- Link "link3" is elbow arm. -->
+    <link name="link3">
+        <collision>
+            <origin xyz="0 0 0.06" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.01"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0.06" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.01"/>
+            </geometry>
+            <material name="orange"/>
+        </visual>
+        <inertial>
+            <origin xyz="0 0 0.06" rpy="0 0 0"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+
+     <!-- Joint "joint3" is joint between elbow(link3) and wrist(link4). -->
+    <joint name="joint3" type="revolute">
+        <parent link="link3"/>
+        <child link="link4"/>
+        <origin xyz="0 0 0.12" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="30" lower="-1.5708" upper="1.5708" velocity="1.571"/>
+    </joint>
+
+    <!-- Link "link4" is gripper. -->
+    <link name="link4">
+        <collision>
+            <origin xyz="0 0 0.06" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.01"/>
+            </geometry>
+        </collision>
+        <visual>
+            <origin xyz="0 0 0.06" rpy="0 0 0"/>
+            <geometry>
+                <cylinder length="0.12" radius="0.01"/>
+            </geometry>
+            <material name="black"/>
+        </visual>
+        <inertial>
+            <origin xyz="0 0 0.06" rpy="0 0 0"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+     <!-- Joint "joint3" is joint between elbow(link3) and wrist(link4). 
+    <joint name="joint4" type="revolute">
+        <parent link="link4"/>
+        <child link=""/>
+        <origin xyz="0 0 0.12" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+        <limit effort="30" lower="-1.5708" upper="1.5708" velocity="1.571"/>
+    </joint>-->
+
+
+   
+</robot>
+
+

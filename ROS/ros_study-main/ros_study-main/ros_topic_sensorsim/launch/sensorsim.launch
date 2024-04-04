@@ -1,0 +1,10 @@
+<launch>
+<group ns="sim1">
+<node pkg="ros_topic_sensorsim" type="ros_topic_sensorsim_publisher" name="sensor_pub_1"/>
+<node pkg="ros_topic_sensorsim" type="ros_topic_sensorsim_subscriber" name="sensor_sub_1"/>
+</group>
+<group ns="sim2">
+<node pkg="ros_topic_sensorsim" type="ros_topic_sensorsim_publisher" name="sensor_pub_2"/>
+<node pkg="ros_topic_sensorsim" type="ros_topic_sensorsim_subscriber" name="sensor_sub_2"/>
+</group>
+</launch>

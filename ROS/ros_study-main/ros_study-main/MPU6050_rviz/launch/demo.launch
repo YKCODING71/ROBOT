@@ -1,0 +1,9 @@
+<launch>
+
+  <node pkg="MPU6050_rviz" type="MPU6050_rviz_pub" name="MPU6050_rviz_pub" required="true">
+    <param name="port" value="/dev/ttyUSB0"/>
+  </node>
+
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find MPU6050_rviz)/rviz/demo.rviz" required="true"/>
+
+</launch>

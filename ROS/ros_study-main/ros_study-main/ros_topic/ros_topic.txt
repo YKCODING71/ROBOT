@@ -1,0 +1,83 @@
+
+이 CMakeLists.txt 파일은 ROS 패키지 "ros_topic"을 설정하는데 사용됩니다. 각 부분을 한글로 분석해보겠습니다.
+
+cmake
+Copy code
+cmake_minimum_required(VERSION 3.0.2)
+이 줄은 이 파일이 읽히기 위해 필요한 최소한의 CMake 버전을 지정합니다.
+
+cmake
+Copy code
+project(ros_topic)
+이 줄은 이 프로젝트의 이름을 "ros_topic"으로 설정합니다.
+
+cmake
+Copy code
+find_package(catkin REQUIRED COMPONENTS
+  message_generation
+  roscpp
+  std_msgs
+)
+이 부분은 이 패키지를 빌드하는 데 필요한 Catkin 패키지를 찾고 포함시킵니다. 이 경우 message_generation, roscpp, std_msgs를 필요로 합니다.
+
+cmake
+Copy code
+add_message_files(
+   FILES
+   Message1.msg
+)
+이 명령은 Message1.msg라는 메시지 파일이 있는 것을 Catkin에 알립니다.
+
+cmake
+Copy code
+generate_messages(
+   DEPENDENCIES
+   std_msgs
+)
+이 명령은 메시지 클래스의 소스 코드를 생성합니다. 생성된 코드가 std_msgs 패키지의 메시지에 의존함을 지정합니다.
+
+cmake
+Copy code
+catkin_package()
+이 명령은 Catkin을 통해 이 패키지가 설치될 준비를 합니다. 이 경우에는 인자가 없습니다.
+
+cmake
+Copy code
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+)
+이 줄은 이 패키지를 컴파일하는 데 필요한 디렉터리를 포함시킵니다. catkin 패키지에서 지정된 디렉터리를 포함시킵니다.
+
+cmake
+Copy code
+add_executable(ros_topic_publisher src/ros_topic_publisher.cpp)
+이 명령은 발행자 노드의 실행 파일을 추가합니다. 발행자 노드의 소스 파일을 지정합니다.
+
+cmake
+Copy code
+add_dependencies(ros_topic_publisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+이 줄은 발행자 노드의 종속성을 추가합니다. 필요한 메시지가 생성된 후에만 노드가 빌드되도록 합니다.
+
+cmake
+Copy code
+target_link_libraries(ros_topic_publisher
+  ${catkin_LIBRARIES}
+)
+이 명령은 발행자 노드에 필요한 라이브러리를 링크합니다. catkin 라이브러리를 포함합니다.
+
+cmake
+Copy code
+add_executable(ros_topic_subscriber src/ros_topic_subscriber.cpp)
+발행자 노드와 유사하게, 이 명령은 구독자 노드의 실행 파일을 추가합니다.
+
+cmake
+Copy code
+add_dependencies(ros_topic_subscriber ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+이 줄은 구독자 노드의 종속성을 추가합니다. 필요한 메시지가 생성된 후에만 노드가 빌드되도록 합니다.
+
+cmake
+Copy code
+target_link_libraries(ros_topic_subscriber
+  ${catkin_LIBRARIES}
+)
+이 명령은 구독자 노드에 필요한 라이브러리를 링크합니다. catkin 라이브러리를 포함합니다.
